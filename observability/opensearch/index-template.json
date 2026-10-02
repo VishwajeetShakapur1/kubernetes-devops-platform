@@ -1,0 +1,12 @@
+{
+  "index_patterns": ["k8s-logs-*"],
+  "template": {
+    "settings": {
+      "number_of_shards": 1,
+      "number_of_replicas": 1
+    },
+    "mappings": {
+      "dynamic": true
+    }
+  }
+}

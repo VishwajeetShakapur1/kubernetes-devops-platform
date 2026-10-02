@@ -1,0 +1,28 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: platform-alerts
+  namespace: monitoring
+spec:
+  groups:
+    - name: platform
+      rules:
+        - alert: OrderServiceHighErrorRate
+          expr: |
+            (
+              rate(app_errors_total[5m])
+              /
+              clamp_min(rate(app_requests_total[5m]), 1)
+            ) > 0.05
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Order service error rate above 5 percent
+        - alert: OrderServiceDown
+          expr: up{job="order-service"} == 0
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: Order service scrape target is down

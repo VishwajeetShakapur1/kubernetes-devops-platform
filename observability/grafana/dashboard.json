@@ -1,0 +1,12 @@
+{
+  "title": "Platform Service Overview",
+  "schemaVersion": 39,
+  "panels": [
+    {"type":"stat","title":"Request Rate",
+     "targets":[{"expr":"sum(rate(app_requests_total[5m]))"}]},
+    {"type":"stat","title":"Error Rate",
+     "targets":[{"expr":"sum(rate(app_errors_total[5m]))"}]},
+    {"type":"timeseries","title":"Requests",
+     "targets":[{"expr":"rate(app_requests_total[5m])"}]}
+  ]
+}
